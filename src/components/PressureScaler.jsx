@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 const PressureScaler = ({rows,cols,current_pressure,currentTime})=> {
   const gridItems = []
   const gridDisplay = []
+  console.log("current render", currentTime, current_pressure)
   for (let i=0; i<rows; i++){
       const row = []
       const divRow = []
@@ -22,7 +23,6 @@ const PressureScaler = ({rows,cols,current_pressure,currentTime})=> {
       gridDisplay.push(divRow)
       gridItems.push(row)
   }
-  console.log(gridDisplay)
   return (
     <div className="sm:flex sm:justify-center sm:w-screen m-5">
       <div className="sm:border-l-4 sm:border-b-4 sm:grid sm:gap-0 sm:grid-cols-10">
