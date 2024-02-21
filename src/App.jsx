@@ -12,15 +12,13 @@ function App() {
   const xRange= 10;
   let rustPress = 0 
   
-  console.log("rust pressure",rustPress);
   const handleStart = ()=> {
     if (ventilate == false) {setVentilate(true)}
     if (ventilate == true) {
         setInterval(() => {
           // get the rust current pressure
-          invoke('pressure_current').then((press)=> rustPress = press) 
+          invoke('peak_pressure_current').then((press)=> rustPress = press) 
           setCurrentP(rustPress)
-          
       }, 100);
     let timeKeeper = 0
       setInterval(() => {
