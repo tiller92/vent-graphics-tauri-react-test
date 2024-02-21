@@ -16,10 +16,20 @@ function App() {
   const handleStart = ()=> {
     if (ventilate == false) {setVentilate(true)}
     if (ventilate == true) {
+        setInterval(() => {
+          // set this to current "measured pressure"
+          setCurrentP(prevPressure => prevPressure + 1)
+          
+      }, 100);
+    let timeKeeper = 0
       setInterval(() => {
-          setCurrentP(prevPressure => prevPressure + 2)
-          setCurrentT(prevTime => prevTime + 1)
-      }, 2000);
+          timeKeeper++ 
+          if (timeKeeper < 9){
+            setCurrentT(prevTime => prevTime + 1)
+          }else {
+            setCurrentT(8)
+          }
+      }, 1000);
       }
     }
 

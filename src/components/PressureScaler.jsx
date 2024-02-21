@@ -15,7 +15,7 @@ const PressureScaler = ({rows,cols,current_pressure,currentTime})=> {
         divRow.push(newDiv)    
 
       }else{
-        let newDiv = `-`
+        let newDiv = ` `
         divRow.push(newDiv)
       }
       row.push([i,j])
