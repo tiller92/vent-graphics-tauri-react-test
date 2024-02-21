@@ -1,9 +1,7 @@
 import { useState , useEffect} from "react";
-import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import "./styles.css";
-import { LineChart } from '@mui/x-charts/LineChart';
 import  PressureScaler from './components/PressureScaler';
 
 function App() {
@@ -12,13 +10,16 @@ function App() {
   const [ventilate, setVentilate] = useState(false);
   const yRange = 50;
   const xRange= 10;
+  let rustPress = 0 
   
+  console.log("rust pressure",rustPress);
   const handleStart = ()=> {
     if (ventilate == false) {setVentilate(true)}
     if (ventilate == true) {
         setInterval(() => {
-          // set this to current "measured pressure"
-          setCurrentP(prevPressure => prevPressure + 1)
+          // get the rust current pressure
+          invoke('pressure_current').then((press)=> rustPress = press) 
+          setCurrentP(rustPress)
           
       }, 100);
     let timeKeeper = 0
