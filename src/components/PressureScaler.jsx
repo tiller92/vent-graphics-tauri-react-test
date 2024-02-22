@@ -18,6 +18,14 @@ const PressureScaler = ({rows,cols,current_pressure,currentTime})=> {
     }
       gridDisplay.push(divRow)
   }
+<<<<<<< HEAD
+=======
+  for (let loc in prevPressures){
+    console.log("loc",loc)
+  }
+  
+  
+>>>>>>> refs/remotes/origin/main
 
   return (
     <div className="sm:flex sm:justify-center sm:w-screen m-5">
