@@ -1,29 +1,24 @@
-import { useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
-import { Line } from 'react-chartjs-2';
 
-const Grid = ({rows,cols,current_pressure})=> {
-  const gridItems = []
+const PressureScaler = ({rows,cols,current_pressure,currentTime})=> {
+  const prevPressures = []
   const gridDisplay = []
-  const currentTime = 5
   for (let i=0; i<rows; i++){
       const row = []
       const divRow = []
     for (let j=cols; j>=0; j--){
-      if (j==current_pressure && i == currentTime){
+      if (j==current_pressure && i == currentTime ){
         let newDiv = `*`
-        divRow.push(newDiv)    
-
+        divRow.push(newDiv)
+        prevPressures.push([i,j])
       }else{
-        let newDiv = `-`
+        let newDiv = ` `
         divRow.push(newDiv)
       }
       row.push([i,j])
     }
       gridDisplay.push(divRow)
-      gridItems.push(row)
   }
-  console.log(gridDisplay)
+
   return (
     <div className="sm:flex sm:justify-center sm:w-screen m-5">
       <div className="sm:border-l-4 sm:border-b-4 sm:grid sm:gap-0 sm:grid-cols-10">
@@ -39,4 +34,4 @@ const Grid = ({rows,cols,current_pressure})=> {
 
 };
 
-export default Grid; 
+export default PressureScaler; 
