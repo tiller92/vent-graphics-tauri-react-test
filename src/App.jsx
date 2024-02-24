@@ -5,6 +5,8 @@ import "./styles.css";
 import  PressureScaler from './components/PressureScaler';
 import LinePlot from "./components/LinePlot";
 import * as d3 from "d3";
+import  SimpleLineChart from './components/SimpleLineChart'; 
+import * as Plot from "@observablehq/plot";
 
 function App() {
   const [current_pressure, setCurrentP] = useState(0);
@@ -33,12 +35,14 @@ function App() {
       }, 1000);
       }
     }
-  const [data, setData] = useState(() => d3.ticks(-2, 2, 200).map(Math.sin));
+  
+  const [data, setData] = useState([{x: 1, y: 1}, {x:2,y: 2}]);
   return (
   <>
-    <LinePlot data={data}/>
-    <PressureScaler rows={xRange} cols={yRange} currentTime={currentTime} 
-    current_pressure={current_pressure}/>
+      <SimpleLineChart data={data}/>
+      {/* <LinePlot data={data}/> */}
+    {/* <PressureScaler rows={xRange} cols={yRange} currentTime={currentTime} 
+    current_pressure={current_pressure}/> */}
     <button className="btn"onClick={handleStart}>Ventilate</button>
   </>
 

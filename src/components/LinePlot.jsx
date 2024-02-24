@@ -1,23 +1,26 @@
 import * as d3 from "d3";
+import { useState , useRef, useEffect} from "react";
 
-export default function LinePlot({
-  data,
-  width = 640,
-  height = 400,
-  marginTop = 20,
-  marginRight = 20,
-  marginBottom = 20,
-  marginLeft = 20
-}) {
-  const x = d3.scaleLinear([0, data.length - 1], [marginLeft, width - marginRight]);
-  const y = d3.scaleLinear(d3.extent(data), [height - marginBottom, marginTop]);
-  const line = d3.line((d, i) => x(i), y);
-  return (
-    <svg width={width} height={height}>
-      <path fill="none" stroke="currentColor" strokeWidth="1.5" d={line(data)} />
-      <g fill="white" stroke="currentColor" strokeWidth="1.5">
-        {data.map((d, i) => (<circle key={i} cx={x(i)} cy={y(d)} r="2.5" />))}
-      </g>
-    </svg>
+export default function LinePlot({data}) {
+    const svgRef = useRef()
+    
+    useEffect(()=>{
+        const w = 500
+        const h = 100 
+        const svg = d3.select(svgRef.current).attr('width', w).attr('height',h).style('margin-top',50)
+        const xScale = d3.scaleLinear().domain([0,50]).range([0,50])
+        const yScale = d3.scaleLinear().domain([0,50]).range([50,0])
+        const generateScaledLine = d3.line().x((xScale)).y((yScale)).curve(d3.curveCardinal)
+
+        svg.selectAll('.line').data([data]).join('path').attr('d', d=> generateScaledLine(d)).attr('fill', 'none').attr('stroke','white')
+
+    }, [data])
+    
+   return (
+    <>
+  <div className="flex justify-center w-screen">
+        <svg ref={svgRef}></svg>
+  </div>
+    </>
   );
 }
