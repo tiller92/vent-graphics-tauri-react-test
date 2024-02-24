@@ -3,6 +3,8 @@ import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import "./styles.css";
 import  PressureScaler from './components/PressureScaler';
+import LinePlot from "./components/LinePlot";
+import * as d3 from "d3";
 
 function App() {
   const [current_pressure, setCurrentP] = useState(0);
@@ -31,9 +33,10 @@ function App() {
       }, 1000);
       }
     }
-
+  const [data, setData] = useState(() => d3.ticks(-2, 2, 200).map(Math.sin));
   return (
   <>
+    <LinePlot data={data}/>
     <PressureScaler rows={xRange} cols={yRange} currentTime={currentTime} 
     current_pressure={current_pressure}/>
     <button className="btn"onClick={handleStart}>Ventilate</button>

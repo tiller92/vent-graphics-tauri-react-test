@@ -3,7 +3,6 @@ const PressureScaler = ({rows,cols,current_pressure,currentTime})=> {
   const prevPressures = []
   const gridDisplay = []
   for (let i=0; i<rows; i++){
-      const row = []
       const divRow = []
     for (let j=cols; j>=0; j--){
       if (j==current_pressure && i == currentTime ){
@@ -14,18 +13,9 @@ const PressureScaler = ({rows,cols,current_pressure,currentTime})=> {
         let newDiv = ` `
         divRow.push(newDiv)
       }
-      row.push([i,j])
     }
       gridDisplay.push(divRow)
   }
-<<<<<<< HEAD
-=======
-  for (let loc in prevPressures){
-    console.log("loc",loc)
-  }
-  
-  
->>>>>>> refs/remotes/origin/main
 
   return (
     <div className="sm:flex sm:justify-center sm:w-screen m-5">
