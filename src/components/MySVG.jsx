@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 
 function MySVG ({currentPressure, currentTime}){
-  const currentRange = 50
-  const currentDomain = 10
   const desiredHeight = 500
   const desiredWidth = 1000
   // two lines will be the graphs axis so orgin will be x1 and y1 [50,470]
-  // height 500 /10 = 50 wich could change based on pressure
-  // total pressure will need to by pressure  * some conversion to pixal
   // current y scale 470 - 30 is the top. 430 is total pixels 430/ 50 = 8.6 desried increment  
-  const displayX = 50
+  // width scale x 900 - 50 = 850 / 10 = 85 pixel increment 
+  const displayX = 50 + (currentTime * 85) 
   const displayY = (470 - (currentPressure *8.6)) 
-  console.log('x:',displayX, 'y:',displayY);
   return (
    <div className="flex justify-center mt-20"> 
     <svg width={desiredWidth} height={desiredHeight} viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg">

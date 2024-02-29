@@ -31,7 +31,6 @@ function App() {
       }, 1000);
       }
     }
-  
   return (
   <>
     <MySVG currentPressure={current_pressure} currentTime={currentTime}/>
