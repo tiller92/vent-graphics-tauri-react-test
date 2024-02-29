@@ -5,7 +5,7 @@ import "./styles.css";
 import MySVG from "./components/MySVG";
 
 function App() {
-  const [current_pressure, setCurrentP] = useState(0);
+  const [current_pressure, setCurrentP] = useState(0.1);
   const [currentTime, setCurrentT] = useState(0);
   const [ventilate, setVentilate] = useState(false);
   const yRange = 50;
@@ -34,7 +34,7 @@ function App() {
   
   return (
   <>
-    <MySVG cx={current_pressure} cy={currentTime}/>
+    <MySVG currentPressure={current_pressure} currentTime={currentTime}/>
     <div>
       <button className="btn btn-info" onClick={handleStart}>Ventilate</button>
     </div>
