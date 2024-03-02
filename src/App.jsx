@@ -5,7 +5,7 @@ import "./styles.css";
 import MySVG from "./components/MySVG";
 
 function App() {
-  const [current_pressure, setCurrentP] = useState(0.1);
+  const [current_pressure, setCurrentP] = useState(0);
   const [currentTime, setCurrentT] = useState(0);
   const [ventilate, setVentilate] = useState(false);
   const yRange = 50;
@@ -14,23 +14,19 @@ function App() {
   
   const handleStart = ()=> {
     if (ventilate == false) {setVentilate(true)}
-    if (ventilate == true) {
-        setInterval(() => {
-          // get the rust current pressure
-          invoke('peak_pressure_current').then((press)=> rustPress = press) 
-          setCurrentP(rustPress)
-      }, 100);
+    if (ventilate == true) {setVentilate(false)}
     let timeKeeper = 0
       setInterval(() => {
           timeKeeper++ 
-          if (timeKeeper < 9){
-            setCurrentT(prevTime => prevTime + 1)
+          if (timeKeeper < 90){
+            setCurrentT(prevTime => prevTime +10)
+            invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }else {
-            setCurrentT(8)
+            setCurrentT(900)
+            invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }
-      }, 1000);
+      }, 100);
       }
-    }
   return (
   <>
     <MySVG currentPressure={current_pressure} currentTime={currentTime}/>

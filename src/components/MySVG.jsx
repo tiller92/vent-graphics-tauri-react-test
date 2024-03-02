@@ -6,7 +6,8 @@ function MySVG ({currentPressure, currentTime}){
   // two lines will be the graphs axis so orgin will be x1 and y1 [50,470]
   // current y scale 470 - 30 is the top. 430 is total pixels 430/ 50 = 8.6 desried increment  
   // width scale x 900 - 50 = 850 / 10 = 85 pixel increment 
-  const displayX = 50 + (currentTime * 85) 
+  // x needs to move pixel by pixel to be smooth
+  const displayX = 50 + (currentTime ) 
   const displayY = (470 - (currentPressure *8.6)) 
   return (
    <div className="flex justify-center mt-20"> 
