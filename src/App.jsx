@@ -18,11 +18,11 @@ function App() {
     let timeKeeper = 0
       setInterval(() => {
           timeKeeper++ 
-          if (timeKeeper < 90){
+          if (timeKeeper < 80){
             setCurrentT(prevTime => prevTime +10)
             invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }else {
-            setCurrentT(900)
+            setCurrentT(800)
             invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }
       }, 100);
