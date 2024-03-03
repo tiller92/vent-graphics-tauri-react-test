@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import "./styles.css";
 import MySVG from "./components/MySVG";
+import PressuresDashboard from "./components/PressuresDashboard";
 
 function App() {
   const [current_pressure, setCurrentP] = useState(0);
@@ -13,10 +14,8 @@ function App() {
   let rustPress = 0 
   
   const handleStart = ()=> {
-    if (ventilate == false) {setVentilate(true)}
-    if (ventilate == true) {setVentilate(false)}
     let timeKeeper = 0
-      setInterval(() => {
+    const inertavelId = setInterval(() => {
           timeKeeper++ 
           if (timeKeeper < 80){
             setCurrentT(prevTime => prevTime +10)
@@ -26,9 +25,11 @@ function App() {
             invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }
       }, 100);
-      }
+    }
+
   return (
   <>
+    <PressuresDashboard peakPressure={current_pressure}/>
     <MySVG currentPressure={current_pressure} currentTime={currentTime}/>
     <div>
       <button className="btn btn-info" onClick={handleStart}>Ventilate</button>
