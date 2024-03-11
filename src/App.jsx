@@ -14,17 +14,31 @@ function App() {
   let rustPress = 0 
   
   const handleStart = ()=> {
+    console.log(ventilate)
+    if (ventilate === true) {setVentilate(false)}
+    else if (ventilate === false) {setVentilate(true)}
+    console.log(ventilate)
+    if (ventilate == true) {
+      console.log("Start")
     let timeKeeper = 0
-    const inertavelId = setInterval(() => {
+    const intervalId = setInterval(() => {
           timeKeeper++ 
-          if (timeKeeper < 80){
-            setCurrentT(prevTime => prevTime +10)
+          if (timeKeeper < 800){
+            setCurrentT(prevTime => prevTime +1)
+            console.log(currentTime, timeKeeper)
             invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }else {
             setCurrentT(800)
+            console.log(currentTime, timeKeeper)
             invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }
-      }, 100);
+      }, 10);
+    }else if (ventilate == false ){
+      clearInterval(intervalId)
+      setCurrentP(0)
+      setCurrentT(0)
+      console.log("end")
+    } 
     }
 
   return (
