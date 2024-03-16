@@ -4,6 +4,7 @@ import "./App.css";
 import "./styles.css";
 import MySVG from "./components/MySVG";
 import PressuresDashboard from "./components/PressuresDashboard";
+import RenderLineChart from "./components/reCharts.jsx"
 
 function App() {
   const [current_pressure, setCurrentP] = useState(0);
@@ -14,10 +15,8 @@ function App() {
   let rustPress = 0 
   
   const handleStart = ()=> {
-    console.log(ventilate)
     if (ventilate === true) {setVentilate(false)}
     else if (ventilate === false) {setVentilate(true)}
-    console.log(ventilate)
     if (ventilate == true) {
       console.log("Start")
     let timeKeeper = 0
@@ -25,11 +24,11 @@ function App() {
           timeKeeper++ 
           if (timeKeeper < 800){
             setCurrentT(prevTime => prevTime +1)
-            console.log(currentTime, timeKeeper)
-            invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
-          }else {
+            invoke('peak_pressure_current').then((press)=> {
+            setCurrentP(press)
+          }) }
+          else {
             setCurrentT(800)
-            console.log(currentTime, timeKeeper)
             invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
           }
       }, 10);
@@ -44,9 +43,10 @@ function App() {
   return (
   <>
     <PressuresDashboard peakPressure={current_pressure}/>
-    <MySVG currentPressure={current_pressure} currentTime={currentTime}/>
+    <RenderLineChart/>
+    <MySVG currentPressure={current_pressure} currentTime={currentTime} />
     <div>
-      <button className="btn btn-info" onClick={handleStart}>Ventilate</button>
+    <button className="btn btn-info" onClick={handleStart}>Ventilate</button>
     </div>
   </> 
 
