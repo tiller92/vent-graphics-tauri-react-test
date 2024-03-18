@@ -10,7 +10,6 @@ function MySVG ({currentPressure, currentTime }){
   const displayX = 50 + (currentTime ) 
   const displayY = (470 - (currentPressure *8.6)) 
   const pressures = [0,10,10,10,10,10,10,10,10]
-  console.log(pressures)
   const path = `M ${displayX} ${displayY} Q 95 10 180 80`
   return (
    <div className="flex justify-center mt-20"> 
