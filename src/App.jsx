@@ -28,42 +28,53 @@ function App() {
     {uv:0, amt: 100},
     {uv:0, amt: 100},
     {uv:0, amt: 100},
-    {uv:7, amt: 100},
+    {uv:0, amt: 100},
   ])
   const yRange = 50;
   const xRange= 10;
   let rustPress = 0 
 
   const handleStart = ()=> {
+
     if (ventilate === true) {setVentilate(false)}
     else if (ventilate === false) {setVentilate(true)}
-
+  
     if (ventilate == true) {
       console.log("Start")
     let timeKeeper = 0
     const intervalId = setInterval(() => {
           timeKeeper++ 
-          if (timeKeeper < 80){
+          if (timeKeeper < 7){
             setCurrentT(prevTime => prevTime +1)
             invoke('peak_pressure_current').then((press)=> {
             let parsedPressure = parseInt(press)
-            //reCharts wants a copy dont modify
+            setData(prevArray => {
+              const newArr = [...prevArray]
+              const newObj = {uv:parsedPressure, amt:100}
+             // need to insert the new obj at the new time and the following times for each item
+              // timeKeeper - timeKeeper.length 
+              newArr[timeKeeper] = newObj
+              console.log(newArr[timeKeeper], data,timeKeeper)
+              return newArr
+            })
+            setCurrentP(press)
+          }) }
+          else {
+            setCurrentT(prevTime => prevTime +1)
+            invoke('peak_pressure_current').then((press)=> {
+            setCurrentP(press) 
+            let parsedPressure = parseInt(press)
             setData(prevArray => {
               const newData = [...prevArray,{uv:parsedPressure,amt:100}]
               newData.shift()
               return newData 
             })
-            console.log(data)
-            setCurrentP(press)
-          }) }
-          else {
-            setCurrentT(80)
-            invoke('peak_pressure_current').then((press)=> setCurrentP(press)) 
-          }
-      }, 1000);
+            })
+        }
+    }, 1000);
+  
     }else if (ventilate == false ){
       setCurrentP(0)
-      setCurrentT(0)
       console.log("end")
     } 
     }
